@@ -1,39 +1,44 @@
 # create-microservice-template
 
-Are you tired of creating over and over the same folder structure for your projects? Well, I am. Thats why i decided to make a little CLI tool to make the set up of a new project a bit easier.
+[![License: MIT](https://img.shields.io/github/license/aerodiduch/create-microservice-template)](LICENSE) ![Bash](https://img.shields.io/badge/bash-4EAA25?logo=gnubash&logoColor=white) ![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
 
-What this script will create:
-- Standard `.dockerignore` file for Python
-- Standard `.gitignore` file for Python
-- Simple `app.Dockerfile` template for FastAPI app.
-- Git hook to update virtual enviroment's requirements after every commit.
-- Virtual enviroment with `FastAPI`, `dotenv` and `uvicorn`.
-- Git repo initialization
-- Sample FastAPI app.
+[Español](README.es.md)
 
-It's just a simple bash script that creates a basic folder and file structure for FastAPI projects.
+Are you tired of creating the same folder structure over and over for your projects? Well, I am. That's why I made a little script that sets up a new FastAPI microservice in one go.
 
-#
-## How to use it
+Run it inside an empty folder and it creates:
 
-Just simply clone this repository:
+- `.gitignore` and `.dockerignore` for Python, downloaded from GitHub's and Google Cloud's templates;
+- `app.Dockerfile`, on `python:3.11-slim`, serving the app with uvicorn on port 60610;
+- a `README.md` to start from;
+- a Git repo with a pre-commit hook that refreshes `requirements.txt` from the virtual environment on every commit;
+- a virtual environment (`venv`) with `fastapi`, `requests`, `python-dotenv` and `uvicorn`;
+- a minimal FastAPI app in `app.py`;
+- and a first commit with all of it.
 
-```
+## Install
+
+Needs Bash, Git, curl and Python 3, on Linux or macOS.
+
+```sh
 git clone https://github.com/aerodiduch/create-microservice-template
-```
-
-You can either have this script globally or locally available. 
-If you want to have it only for the local user, follow this steps:
-
-```
-mv create-microservice-template.sh ~/.local/bin
+mkdir -p ~/.local/bin
+cp create-microservice-template/create-microservice-template.sh ~/.local/bin/
 chmod +x ~/.local/bin/create-microservice-template.sh
 ```
 
-After that you can just create a new folder, cd into it and execute the script
+`~/.local/bin` has to be in your `PATH`.
+
+## Usage
+
 ```sh
-mkdir my-new-project && cd $_
+mkdir my-new-service && cd my-new-service
 create-microservice-template.sh
+venv/bin/uvicorn app:app --reload
 ```
 
-Congratulations, you have your own template for FastAPI microservices, quick and easy! 
+The README it generates says `uvicorn src.app:app`, but the app is in `app.py`, so the command is `uvicorn app:app`.
+
+## License
+
+MIT, see [LICENSE](LICENSE).
